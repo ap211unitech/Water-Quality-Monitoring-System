@@ -1,7 +1,7 @@
 import { TextField, Button, Grid } from '@mui/material'
 import { useState } from 'react'
 
-const dashboard = () => {
+const addLocation = () => {
     const [locationText, setLocationText] = useState('');
 
     const handleClick = () => {
@@ -28,4 +28,4 @@ const dashboard = () => {
     )
 }
 
-export default dashboard
+export default addLocation
