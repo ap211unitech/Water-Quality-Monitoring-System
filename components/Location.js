@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import moment from 'moment';
+import { DeleteForever } from '@mui/icons-material'
+import { red } from '@mui/material/colors';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -34,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Location = () => {
 
-    const { onGetLocations, get: { isLoading, isError, errorMsg }, locations } = useLocation();
+    const { onGetLocations, get: { isLoading, isError, errorMsg }, locations, onDeleteLocation, delete: deleteLocation } = useLocation();
 
     useEffect(() => {
         onGetLocations();
@@ -45,6 +47,19 @@ const Location = () => {
             toast.error(errorMsg);
         }
     }, [isError])
+
+    const handleDelete = (id) => {
+        onDeleteLocation(id);
+    }
+
+    useEffect(() => {
+        if (deleteLocation.isError) {
+            toast.error(deleteLocation.errorMsg);
+        }
+        if (deleteLocation.isSuccess) {
+            toast.success('Location deleted');
+        }
+    }, [deleteLocation.isError, deleteLocation.isSuccess])
 
     if (isLoading) {
         return (
@@ -73,6 +88,7 @@ const Location = () => {
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
+                            <StyledTableCell align='center'></StyledTableCell>
                             <StyledTableCell align='center'>Id</StyledTableCell>
                             <StyledTableCell align="center">Location</StyledTableCell>
                             <StyledTableCell align="center">Created at</StyledTableCell>
@@ -81,6 +97,9 @@ const Location = () => {
                     <TableBody>
                         {locations.map((row, i) => (
                             <StyledTableRow key={i}>
+                                <TableCell align='center'>
+                                    <DeleteForever style={{ color: red[600], fontSize: '2em', cursor: 'pointer' }} onClick={() => handleDelete(row._id)} />
+                                </TableCell>
                                 <TableCell align='center' component="th" scope="row">{row._id}</TableCell>
                                 <TableCell align="center">
                                     {row.name}

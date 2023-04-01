@@ -1,4 +1,4 @@
-import { GET_LOCATIONS, GET_LOADING_LOCATION, GET_ERROR_LOCATION, POST_LOCATION, POST_ERROR_LOCATION } from './constants'
+import { GET_LOCATIONS, GET_LOADING_LOCATION, GET_ERROR_LOCATION, POST_LOCATION, POST_ERROR_LOCATION, DELETE_ERROR_LOCATION, DELETE_LOCATION, POST_LOCATION_RESET, DELETE_LOCATION_RESET } from './constants'
 
 const initialTemplate = {
     isLoading: false,
@@ -11,7 +11,8 @@ const initialTemplate = {
 export const initialState = {
     locations: [],
     get: { ...initialTemplate },
-    post: { ...initialTemplate }
+    post: { ...initialTemplate },
+    delete: { ...initialTemplate },
 }
 
 export const locationReducer = (state = initialState, action) => {
@@ -47,6 +48,12 @@ export const locationReducer = (state = initialState, action) => {
                 }
             }
         }
+        case POST_LOCATION_RESET: {
+            return {
+                ...state,
+                post: { ...initialTemplate }
+            }
+        }
         case POST_LOCATION: {
             return {
                 ...state,
@@ -66,6 +73,33 @@ export const locationReducer = (state = initialState, action) => {
                     isError: true,
                     errorMsg: action.payload
                 }
+            }
+        }
+        case DELETE_LOCATION: {
+            return {
+                ...state,
+                delete: {
+                    ...state.delete,
+                    isLoading: false,
+                    isSuccess: true,
+                },
+                locations: state.locations.filter(location => location._id.toString() !== action.payload.id)
+            }
+        }
+        case DELETE_ERROR_LOCATION: {
+            return {
+                ...state,
+                delete: {
+                    ...state.delete,
+                    isError: true,
+                    errorMsg: action.payload
+                }
+            }
+        }
+        case DELETE_LOCATION_RESET: {
+            return {
+                ...state,
+                delete: { ...initialTemplate }
             }
         }
         default: {
