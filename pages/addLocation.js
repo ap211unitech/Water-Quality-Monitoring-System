@@ -40,7 +40,7 @@ const addLocation = () => {
                 variant="contained"
                 size='large'
                 onClick={handleClick}
-                style={{ marginTop: 10 }}
+                style={{ marginTop: 15 }}
             >
                 Add Location
             </Button>

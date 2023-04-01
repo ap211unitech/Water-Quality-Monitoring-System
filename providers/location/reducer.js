@@ -55,7 +55,7 @@ export const locationReducer = (state = initialState, action) => {
                     isLoading: false,
                     isSuccess: true,
                 },
-                locations: [action.paylaod, ...state.locations]
+                locations: [action.payload.payload, ...state.locations]
             }
         }
         case POST_ERROR_LOCATION: {

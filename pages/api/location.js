@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET': {
       try {
-        const allLocations = await Location.find();
+        const allLocations = await Location.find().sort("-createdAt");
         res.status(200).json(createResponse(allLocations, 200, true));
       }
       catch (error) {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     case 'POST': {
       const { locationText } = req.body;
       try {
-        const newLocation = new Locaton({ name: locationText });
+        const newLocation = new Location({ name: locationText });
         await newLocation.save();
         res.status(201).json(createResponse(newLocation, 201, true));
       }
