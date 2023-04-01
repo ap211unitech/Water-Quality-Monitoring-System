@@ -1,19 +1,30 @@
 import { TextField, Button, Grid } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Location from '@/components/Location';
 import { toast } from 'react-toastify';
+import { useLocation } from '@/providers/location';
 
 const addLocation = () => {
     const [locationText, setLocationText] = useState('');
+    const { onPostLocation, post: { isSuccess, isError, errorMsg } } = useLocation();
 
     const handleClick = () => {
         if (locationText.trim().length === 0) {
             toast.error('Location can not be empty');
             return;
         }
-        // Add Location in database
+        onPostLocation(locationText);
         setLocationText('');
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('Location added');
+        }
+        if (isError) {
+            toast.error(errorMsg);
+        }
+    }, [isSuccess, isError])
 
     return (
         <>

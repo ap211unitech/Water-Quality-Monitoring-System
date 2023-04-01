@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     case 'POST': {
       const { locationText } = req.body;
       try {
-        const newLocation = new Location({ name: locationText });
+        const newLocation = new Locaton({ name: locationText });
         await newLocation.save();
         res.status(201).json(createResponse(newLocation, 201, true));
       }

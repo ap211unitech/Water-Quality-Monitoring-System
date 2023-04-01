@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const Location = () => {
 
-    const { onGetLocations, isError, isLoading, errorMsg, locations } = useLocation();
+    const { onGetLocations, get: { isLoading, isError, errorMsg }, locations } = useLocation();
 
     useEffect(() => {
         onGetLocations();

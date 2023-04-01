@@ -10,12 +10,21 @@ export const LocationProvider = ({ children }) => {
 
     // Actions
     const onGetLocations = async () => {
-        dispatch(A.loadingLocation());
+        dispatch(A.getLoadingLocation());
         try {
             const allLocations = await axios.get('/api/location');
             dispatch(A.getLocations(allLocations.data))
         } catch (error) {
-            dispatch(A.errorLocation(error.response.data))
+            dispatch(A.getErrorLocation(error.response.data))
+        }
+    }
+
+    const onPostLocation = async (locationText) => {
+        try {
+            const newLocation = await axios.post('/api/location', { locationText });
+            dispatch(A.postLocation(newLocation.data))
+        } catch (error) {
+            dispatch(A.postErrorLocation(error.response.data))
         }
     }
 
@@ -23,7 +32,8 @@ export const LocationProvider = ({ children }) => {
         <Provider
             value={{
                 ...state,
-                onGetLocations
+                onGetLocations,
+                onPostLocation
             }}
         >
             {children}
