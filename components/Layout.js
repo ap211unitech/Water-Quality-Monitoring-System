@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { GitHub, Dashboard, AddLocation, Sensors } from '@mui/icons-material'
+import Link from 'next/link';
 const drawerWidth = 260;
 
 export default function PermanentDrawerLeft({ children }) {
@@ -31,7 +32,9 @@ export default function PermanentDrawerLeft({ children }) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Water quality monitoring system
+                        <Link href={'/'}>
+                            Water quality monitoring system
+                        </Link>
                     </Typography>
                     <Button color='inherit'>
                         <a href={'https://github.com/ap211unitech/Water-Quality-Monitoring-System'} target='_blank'>
@@ -51,34 +54,40 @@ export default function PermanentDrawerLeft({ children }) {
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
-                        <ListItem key={'dashboard'} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon style={{ marginRight: 6 }}>
-                                    <Dashboard fontSize='large' />
-                                </ListItemIcon>
-                                <ListItemText primary={'Dashboard'} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem key={'addLocation'} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon style={{ marginRight: 6 }}>
-                                    <AddLocation fontSize='large' />
-                                </ListItemIcon>
-                                <ListItemText primary={'Add Location'} />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem key={'addSensor'} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon style={{ marginRight: 6 }}>
-                                    <Sensors fontSize='large' />
-                                </ListItemIcon>
-                                <ListItemText primary={'Add Sensor'} />
-                            </ListItemButton>
-                        </ListItem>
+                        <Link href={'/dashboard'}>
+                            <ListItem key={'dashboard'} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon style={{ marginRight: 6 }}>
+                                        <Dashboard fontSize='large' />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Dashboard'} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link href={'/addLocation'}>
+                            <ListItem key={'addLocation'} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon style={{ marginRight: 6 }}>
+                                        <AddLocation fontSize='large' />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Add Location'} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link href={'/addSensor'}>
+                            <ListItem key={'addSensor'} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon style={{ marginRight: 6 }}>
+                                        <Sensors fontSize='large' />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Add Sensor'} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     </List>
                 </Box>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, my: 8 }}>
                 {children}
             </Box>
         </Box>
