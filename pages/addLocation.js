@@ -1,30 +1,41 @@
 import { TextField, Button, Grid } from '@mui/material'
 import { useState } from 'react'
+import Location from '@/components/Location';
+import { toast } from 'react-toastify';
 
 const addLocation = () => {
     const [locationText, setLocationText] = useState('');
 
     const handleClick = () => {
+        if (locationText.trim().length === 0) {
+            toast.error('Location can not be empty');
+            return;
+        }
         // Add Location in database
         setLocationText('');
     }
 
     return (
-        <Grid container spacing={2} alignItems={'center'}>
-            <Grid item md={8}>
-                <TextField
-                    id="outlined-basic"
-                    label="Location"
-                    variant="outlined"
-                    fullWidth
-                    value={locationText}
-                    onChange={e => setLocationText(e.target.value)}
-                />
-            </Grid>
-            <Grid item md={2}>
-                <Button variant="contained" size='large' fullWidth onClick={handleClick} >Add Location</Button>
-            </Grid>
-        </Grid>
+        <>
+            <TextField
+                id="outlined-basic"
+                label="Location"
+                variant="outlined"
+                fullWidth
+                value={locationText}
+                onChange={e => setLocationText(e.target.value)}
+            />
+            <Button
+                variant="contained"
+                size='large'
+                onClick={handleClick}
+                style={{ marginTop: 10 }}
+            >
+                Add Location
+            </Button>
+            {/* List of all locations */}
+            <Location />
+        </>
     )
 }
 

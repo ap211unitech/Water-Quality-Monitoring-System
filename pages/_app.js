@@ -4,6 +4,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { red } from '@mui/material/colors'
 import NextNProgress from 'nextjs-progressbar';
 import Head from 'next/head';
+import { GlobalState } from '@/providers/GlobalState';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const theme = createTheme({
   palette: {
@@ -22,12 +25,15 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <NextNProgress color='white' />
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <GlobalState>
+        <ThemeProvider theme={theme}>
+          <ToastContainer autoClose={2000} />
+          <Layout>
+            <NextNProgress color='white' />
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </GlobalState>
     </>
   )
 }

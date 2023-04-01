@@ -1,7 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import dbConnect from "../../config/connect"
-import Location from '../../models/Location'
+import dbConnect from "../../config/connect";
+import Location from '../../models/Location';
+import { createResponse } from "@/utils/response";
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -9,12 +8,25 @@ export default async function handler(req, res) {
 
   switch (method) {
     case 'GET': {
-      const allLocations = await Location.find();
-      res.status(200).json(allLocations);
+      try {
+        const allLocations = await Location.find();
+        res.status(200).json(createResponse(allLocations, 200, true));
+      }
+      catch (error) {
+        res.status(400).json(createResponse(error.message, 400, false));
+      }
       break
     }
     case 'POST': {
-
+      const { locationText } = req.body;
+      try {
+        const newLocation = new Location({ name: locationText });
+        await newLocation.save();
+        res.status(201).json(createResponse(newLocation, 201, true));
+      }
+      catch (error) {
+        res.status(400).json(createResponse(error.message, 400, false));
+      }
       break
     }
     default:
