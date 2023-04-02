@@ -20,20 +20,24 @@ export const LocationProvider = ({ children }) => {
     }
 
     const onPostLocation = async (locationText) => {
-        dispatch(A.postLocationReset());
         try {
             const newLocation = await axios.post('/api/location', { locationText });
             dispatch(A.postLocation(newLocation.data))
+            setTimeout(() => {
+                dispatch(A.postLocationReset());
+            }, 1000);
         } catch (error) {
             dispatch(A.postErrorLocation(error.response.data))
         }
     }
 
     const onDeleteLocation = async (locationId) => {
-        dispatch(A.deleteLocationReset());
         try {
             await axios.delete(`/api/location/`, { locationId });
             dispatch(A.deleteLocation({ id: locationId }))
+            setTimeout(() => {
+                dispatch(A.deleteLocationReset());
+            }, 1000);
         } catch (error) {
             dispatch(A.deleteErrorLocation(error.response.data))
         }
