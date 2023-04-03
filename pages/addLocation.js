@@ -13,7 +13,7 @@ const addLocation = () => {
             toast.error('Location can not be empty');
             return;
         }
-        onPostLocation(locationText);
+        onPostLocation(locationText.trim());
         setLocationText('');
     }
 

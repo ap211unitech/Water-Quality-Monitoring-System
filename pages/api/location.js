@@ -20,6 +20,11 @@ export default async function handler(req, res) {
     case 'POST': {
       const { locationText } = req.body;
       try {
+        // Check if same location already exists
+        const findLocation = await Location.findOne({ name: locationText });
+        if (findLocation) {
+          return res.status(400).json(createResponse('Location already exists', 400, false));
+        }
         const newLocation = new Location({ name: locationText });
         await newLocation.save();
         res.status(201).json(createResponse(newLocation, 201, true));

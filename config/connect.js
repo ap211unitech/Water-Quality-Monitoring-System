@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const MONGODB_URI = 'mongodb+srv://arjunporwal:123arjun456@cluster0.tehrbdn.mongodb.net/?retryWrites=true&w=majority'
+const MONGODB_URI = 'mongodb+srv://arjunporwal:123arjun456@cluster0.tehrbdn.mongodb.net/water-quality-monitoring-system?retryWrites=true&w=majority'
 
 if (!MONGODB_URI) {
     throw new Error(

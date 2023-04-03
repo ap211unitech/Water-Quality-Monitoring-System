@@ -3,17 +3,24 @@ import mongoose from 'mongoose'
 const SensorSchema = new mongoose.Schema({
     location: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'location'
+        ref: 'location',
+        required: true
     },
     sensorId: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     name: {
         type: String,
         required: true,
         trim: true
+    },
+    type: {
+        type: String,
+        enum: ['water', 'tds', 'ph'],
+        required: true
     }
 }, { timestamps: true })
 
