@@ -83,34 +83,39 @@ const Location = () => {
     if (isError) return <></>;
 
     return (
-        <div style={{ marginTop: '1.8em' }}>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align='center'></StyledTableCell>
-                            <StyledTableCell align='center'>Id</StyledTableCell>
-                            <StyledTableCell align="center">Location</StyledTableCell>
-                            <StyledTableCell align="center">Created at</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {locations.map((row, i) => (
-                            <StyledTableRow key={i}>
-                                <TableCell align='center'>
-                                    <DeleteForever style={{ color: red[600], fontSize: '2em', cursor: 'pointer' }} onClick={() => handleDelete(row._id)} />
-                                </TableCell>
-                                <TableCell align='center' component="th" scope="row">{row._id}</TableCell>
-                                <TableCell align="center">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="center">Created at {moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+        <>
+            {
+                locations?.length > 0 &&
+                <div style={{ marginTop: '1.8em' }}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align='center'></StyledTableCell>
+                                    <StyledTableCell align='center'>Id</StyledTableCell>
+                                    <StyledTableCell align="center">Location</StyledTableCell>
+                                    <StyledTableCell align="center">Created at</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {locations.map((row, i) => (
+                                    <StyledTableRow key={i}>
+                                        <TableCell align='center'>
+                                            <DeleteForever style={{ color: red[600], fontSize: '2em', cursor: 'pointer' }} onClick={() => handleDelete(row._id)} />
+                                        </TableCell>
+                                        <TableCell align='center' component="th" scope="row">{row._id}</TableCell>
+                                        <TableCell align="center">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="center">Created at {moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+            }
+        </>
     )
 }
 
