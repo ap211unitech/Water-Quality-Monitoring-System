@@ -1,0 +1,1 @@
+export const sensorTypes = { temp: 'Temperature', ph: 'pH', tds: 'TDS' }

@@ -34,6 +34,7 @@ const addLocation = () => {
                 variant="outlined"
                 fullWidth
                 value={locationText}
+                autoComplete='off'
                 onChange={e => setLocationText(e.target.value)}
             />
             <Button
