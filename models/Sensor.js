@@ -19,7 +19,7 @@ const SensorSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['water', 'tds', 'ph'],
+        enum: ['temp', 'tds', 'ph'],
         required: true
     }
 }, { timestamps: true })
