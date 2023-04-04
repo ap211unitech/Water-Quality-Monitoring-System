@@ -2,17 +2,22 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useEffect, useState } from 'react';
 import { useLocation } from '@/providers/location';
+import { useSensor } from '@/providers/sensor';
 import { Button, Grid } from '@mui/material';
 import { sensorTypes } from '@/utils/helper';
+import { toast } from 'react-toastify';
 
 const addSensor = () => {
     const { onGetLocations, locations } = useLocation();
+    const { onPostSensor, onGetSensors, sensors: sensorsList, post } = useSensor();
+
     const [locationId, setLocationId] = useState('');
     const [sensorName, setSensorName] = useState('');
     const [sensorType, setSensorType] = useState('');
 
     useEffect(() => {
         onGetLocations();
+        onGetSensors();
     }, [])
 
     const handleLocationChange = (loc) => {
@@ -28,8 +33,17 @@ const addSensor = () => {
     }
 
     const handleSensorAdd = () => {
-        console.log(locationId, sensorName, sensorType)
+        onPostSensor({ location: locationId, sensorName, type: sensorType });
     }
+
+    useEffect(() => {
+        if (post.isError) {
+            toast.error(post.errorMsg);
+        }
+        if (post.isSuccess) {
+            toast.success('Sensor added successfully');
+        }
+    }, [post.isError, post.isSuccess])
 
     return (
         <div>
@@ -69,7 +83,7 @@ const addSensor = () => {
                 style={{ marginTop: 15 }}
                 variant="contained"
                 size='large'
-                onClick={handleSensorAdd}
+                onClick={() => handleSensorAdd()}
             >
                 Add sensor
             </Button>

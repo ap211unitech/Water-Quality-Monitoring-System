@@ -28,8 +28,8 @@ export default async function handler(req, res) {
                     }
                     else {
                         modifiedResponse[sensor.location._id] = {
-                            locationId: sensor.location._id,
-                            locationName: sensor.location.name,
+                            _id: sensor.location._id,
+                            name: sensor.location.name,
                             createdAt: sensor.location.createdAt,
                             updatedAt: sensor.location.updatedAt,
                             sensors: [
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
                     }
 
                 })
-                res.status(200).json(createResponse(modifiedResponse, 200, true));
+                res.status(200).json(createResponse(Object.values(modifiedResponse), 200, true));
             }
             catch (error) {
                 res.status(400).json(createResponse(error.message, 400, false));
@@ -56,6 +56,12 @@ export default async function handler(req, res) {
         case 'POST': {
             const { location, sensorName, type } = req.body;
             try {
+                // Check if location exists
+                const findLocation = await Location.findOne({ _id: location });
+                if (!findLocation) {
+                    return res.status(400).json(createResponse('No such Location exists', 400, false));
+                }
+
                 const sensorsOnLocation = await Sensor.find({ location });
                 // Check whether total sensors available on that location is less than 3
                 if (sensorsOnLocation.length >= 3) {
@@ -75,10 +81,11 @@ export default async function handler(req, res) {
                     name: sensorName,
                     sensorId: shortid.generate(),
                     type
-                })
+                });
 
                 await newSensor.save();
-                res.status(201).json(createResponse(newSensor, 201, true));
+                const response = { ...newSensor._doc, location: findLocation }
+                return res.status(201).json(createResponse(response, 201, true));
             }
             catch (error) {
                 if (error.kind === 'ObjectId') {
