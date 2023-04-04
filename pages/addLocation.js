@@ -28,6 +28,7 @@ const addLocation = () => {
 
     return (
         <>
+            <h1>Add a location here...</h1>
             <TextField
                 id="outlined-basic"
                 label="Location"
@@ -35,6 +36,7 @@ const addLocation = () => {
                 fullWidth
                 value={locationText}
                 autoComplete='off'
+                style={{ marginTop: '1rem' }}
                 onChange={e => setLocationText(e.target.value)}
             />
             <Button

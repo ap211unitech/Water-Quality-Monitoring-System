@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <ToastContainer autoClose={2000} />
           <Layout>
-            <NextNProgress color='white' />
+            <NextNProgress color='white' height={4} />
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
