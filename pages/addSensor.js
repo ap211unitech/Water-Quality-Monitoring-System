@@ -6,6 +6,7 @@ import { useSensor } from '@/providers/sensor';
 import { Button, Grid } from '@mui/material';
 import { sensorTypes } from '@/utils/helper';
 import { toast } from 'react-toastify';
+import SensorDataTable from '@/components/SensorDataTable';
 
 const addSensor = () => {
     const { onGetLocations, locations } = useLocation();
@@ -32,8 +33,17 @@ const addSensor = () => {
         setSensorType(type);
     }
 
-    const handleSensorAdd = () => {
-        onPostSensor({ location: locationId, sensorName, type: sensorType });
+    const [newlyCreatedSensorData, setNewlyCreatedSensorData] = useState(null);
+    const handleSensorAdd = async () => {
+        if (!locationId || !(sensorName.trim()) || !sensorType) {
+            toast.error('All field must be filled');
+            return;
+        }
+        const createdSensorData = await onPostSensor({ location: locationId, sensorName: sensorName.trim(), type: sensorType });
+        if (createdSensorData?.success) {
+            setNewlyCreatedSensorData(createdSensorData?.payload);
+            setSensorName('');
+        }
     }
 
     useEffect(() => {
@@ -62,6 +72,7 @@ const addSensor = () => {
             <Grid container spacing={2} my={1}>
                 <Grid item xs={8}>
                     <TextField
+                        autoComplete='off'
                         label="Sensor name"
                         fullWidth
                         value={sensorName}
@@ -87,6 +98,7 @@ const addSensor = () => {
             >
                 Add sensor
             </Button>
+            <SensorDataTable sensorData={newlyCreatedSensorData} />
         </div>
     )
 }

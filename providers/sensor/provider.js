@@ -23,12 +23,16 @@ export const SensorProvider = ({ children }) => {
         try {
             const res = await axios.post('/api/sensor', { location, sensorName, type });
             dispatch(A.postSensor(res.data));
+            return res.data;
         } catch (error) {
             dispatch(A.postErrorSensor(error.response.data))
+            return null;
         }
-        setTimeout(() => {
-            dispatch(A.postSensorReset());
-        }, 1000);
+        finally {
+            setTimeout(() => {
+                dispatch(A.postSensorReset());
+            }, 1000);
+        }
     }
 
 
