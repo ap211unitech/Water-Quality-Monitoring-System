@@ -33,7 +33,7 @@ export const LocationProvider = ({ children }) => {
 
     const onDeleteLocation = async (locationId) => {
         try {
-            await axios.delete(`/api/location/`, { locationId });
+            await axios.delete(`/api/location/`, { data: { locationId } });
             dispatch(A.deleteLocation({ id: locationId }))
         } catch (error) {
             dispatch(A.deleteErrorLocation(error.response.data))

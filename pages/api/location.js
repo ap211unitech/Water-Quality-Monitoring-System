@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     case 'DELETE': {
       const { locationId } = req.body;
       try {
-        await Location.deleteOne(locationId);
+        await Location.deleteOne({ _id: locationId });
         res.status(200).json(createResponse('Location deleted', 200, true));
       }
       catch (error) {
