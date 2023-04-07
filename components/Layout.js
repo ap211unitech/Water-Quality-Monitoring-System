@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { GitHub, Dashboard, AddLocation, Sensors } from '@mui/icons-material'
+import { GitHub, Dashboard, AddLocation, Sensors, AddCircle } from '@mui/icons-material'
 import Link from 'next/link';
 const drawerWidth = 260;
 
@@ -78,9 +78,19 @@ export default function PermanentDrawerLeft({ children }) {
                             <ListItem key={'addSensor'} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon style={{ marginRight: 6 }}>
-                                        <Sensors fontSize='large' />
+                                        <AddCircle style={{ fontSize: 34 }} />
                                     </ListItemIcon>
                                     <ListItemText primary={'Add Sensor'} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link href={'/allSensors'}>
+                            <ListItem key={'allSensors'} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon style={{ marginRight: 6 }}>
+                                        <Sensors fontSize='large' />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'All Sensors'} />
                                 </ListItemButton>
                             </ListItem>
                         </Link>

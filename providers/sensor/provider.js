@@ -35,13 +35,26 @@ export const SensorProvider = ({ children }) => {
         }
     }
 
+    const onDeleteSensor = async (sensorId) => {
+        try {
+            await axios.delete(`/api/sensor/`, { data: { sensorId } });
+            dispatch(A.deleteSensor({ id: sensorId }))
+        } catch (error) {
+            dispatch(A.deleteErrorSensor(error.response.data))
+        }
+        setTimeout(() => {
+            dispatch(A.deleteSensorReset());
+        }, 1000);
+    }
+
 
     return (
         <Provider
             value={{
                 ...state,
                 onGetSensors,
-                onPostSensor
+                onPostSensor,
+                onDeleteSensor
             }}
         >
             {children}

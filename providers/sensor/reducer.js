@@ -4,7 +4,10 @@ import {
     GET_ERROR_SENSOR,
     POST_SENSORS,
     POST_ERROR_SENSOR,
-    POST_SENSOR_RESET
+    POST_SENSOR_RESET,
+    DELETE_SENSOR,
+    DELETE_ERROR_SENSOR,
+    DELETE_SENSOR_RESET
 } from "./constant";
 
 const initialTemplate = {
@@ -116,6 +119,42 @@ export const sensorReducer = (state = initialState, action) => {
                     isError: true,
                     errorMsg: action.payload
                 }
+            }
+        }
+        case DELETE_SENSOR: {
+            const res = [];
+            for (let index = 0; index < state.sensors.length; index++) {
+                let location = state.sensors[index];
+                const updatedArrayOfsensors = location.sensors.filter(s => s._id.toString() !== action.payload.id);
+                res.push({
+                    ...location,
+                    sensors: updatedArrayOfsensors
+                });
+            }
+            return {
+                ...state,
+                delete: {
+                    ...state.delete,
+                    isLoading: false,
+                    isSuccess: true,
+                },
+                sensors: res
+            }
+        }
+        case DELETE_ERROR_SENSOR: {
+            return {
+                ...state,
+                delete: {
+                    ...state.delete,
+                    isError: true,
+                    errorMsg: action.payload
+                }
+            }
+        }
+        case DELETE_SENSOR_RESET: {
+            return {
+                ...state,
+                delete: { ...initialTemplate }
             }
         }
         default: {

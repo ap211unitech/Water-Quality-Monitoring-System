@@ -4,7 +4,10 @@ import {
     GET_ERROR_SENSOR,
     POST_SENSORS,
     POST_ERROR_SENSOR,
-    POST_SENSOR_RESET
+    POST_SENSOR_RESET,
+    DELETE_SENSOR,
+    DELETE_ERROR_SENSOR,
+    DELETE_SENSOR_RESET
 } from "./constant";
 
 export const getSensors = (payload) => ({
@@ -34,3 +37,17 @@ export const postErrorSensor = ({ payload }) => ({
     type: POST_ERROR_SENSOR,
     payload
 })
+
+export const deleteSensor = (payload) => ({
+    type: DELETE_SENSOR,
+    payload
+})
+
+export const deleteErrorSensor = ({ payload }) => ({
+    type: DELETE_ERROR_SENSOR,
+    payload
+})
+
+export const deleteSensorReset = () => ({
+    type: DELETE_SENSOR_RESET,
+});

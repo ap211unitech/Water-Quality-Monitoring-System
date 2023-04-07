@@ -96,6 +96,14 @@ export default async function handler(req, res) {
             break
         }
         case 'DELETE': {
+            const { sensorId } = req.body;
+            try {
+                await Sensor.deleteOne({ _id: sensorId });
+                res.status(200).json(createResponse('Sensor deleted', 200, true));
+            }
+            catch (error) {
+                res.status(400).json(createResponse(error.message, 400, false));
+            }
             break
         }
         default:
