@@ -98,7 +98,7 @@ const allSensors = () => {
                                     Sensor type
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
-                                    Sensor created at
+                                    Created at
                                 </StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -119,10 +119,10 @@ const allSensors = () => {
                                                 </strong>
                                             </TableCell>
                                             <TableCell align="center">
-                                                {sensorTypes[s.type]} sensor
+                                                {s.name}
                                             </TableCell>
                                             <TableCell align="center">
-                                                {s.name}
+                                                {sensorTypes[s.type]} sensor
                                             </TableCell>
                                             <TableCell align="center">
                                                 {moment(s.createdAt).format("DD/MM/YYYY")}
