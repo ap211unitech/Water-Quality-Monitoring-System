@@ -58,20 +58,23 @@ const allSensors = () => {
 
     if (isLoading) {
         return (
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                marginTop: '1.8em'
-            }}>
-                <div>
-                    <CircularProgress disableShrink />
+            <>
+                <h1>Here is the list of all sensors...</h1>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    marginTop: '1.8em'
+                }}>
+                    <div>
+                        <CircularProgress disableShrink />
+                    </div>
+                    <div>
+                        Fetching all sensors...
+                    </div>
                 </div>
-                <div>
-                    Fetching all sensors...
-                </div>
-            </div>
+            </>
         )
     }
 
