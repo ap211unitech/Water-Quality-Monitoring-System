@@ -10,6 +10,7 @@ import moment from "moment";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Chart from './Chart'
 
 const fetcher = async (sensorId) => {
     const res = await axios.post('/api/livedata', { sensorId });
@@ -46,6 +47,54 @@ export default function DashboardData({ location }) {
         })
     }, [])
 
+    // Put all selected sensor data in this state and pass it to Chart Component
+    const [selectedSensor, setSelectedSensor] = useState(null);
+    const handleValueClick = (selectedSensorType) => {
+        if (selectedSensorType === 'temp') {
+            setSelectedSensor({
+                type: selectedSensorType,
+                data: tempData,
+                location: location.name
+            });
+        }
+        else if (selectedSensorType === 'ph') {
+            setSelectedSensor({
+                type: selectedSensorType,
+                data: phData,
+                location: location.name
+            });
+        }
+        else if (selectedSensorType === 'tds') {
+            setSelectedSensor({
+                type: selectedSensorType,
+                data: tdsData,
+                location: location.name
+            });
+        }
+    }
+
+    // If any of data array ChangeCircleSharp, update chart accordingly
+    useEffect(() => {
+        if (selectedSensor?.type === 'temp') {
+            setSelectedSensor(prev => ({
+                ...prev,
+                data: tempData,
+            }));
+        }
+        else if (selectedSensor?.type === 'ph') {
+            setSelectedSensor(prev => ({
+                ...prev,
+                data: phData
+            }));
+        }
+        else if (selectedSensor?.type === 'tds') {
+            setSelectedSensor(prev => ({
+                ...prev,
+                data: tdsData
+            }));
+        }
+    }, [tempData, phData, tdsData])
+
     return (
         <div
             style={{
@@ -77,6 +126,7 @@ export default function DashboardData({ location }) {
                                             fontSize: 15,
                                             marginTop: -10
                                         }}
+                                        onClick={() => handleValueClick(sensor.type)}
                                     >
                                         <strong>
                                             Latest Value :
@@ -100,6 +150,7 @@ export default function DashboardData({ location }) {
                     )
                 })}
             </Grid>
+            {selectedSensor && <Chart chartData={selectedSensor} />}
 
         </div>
     );

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         case 'POST': {
             try {
                 const { sensorId } = req.body;
-                const liveData = [15, 2, 3, 4, 5, 4, 3, 2, 6, 7, 8, 9];
+                const liveData = [10, 28, 20, 4, 15, 30, 3, 2, 6, 26, 8, 40];
                 res.status(200).json(createResponse(liveData, 200, true));
             }
             catch (error) {

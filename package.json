@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coreui/react-chartjs": "^2.1.2",
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
