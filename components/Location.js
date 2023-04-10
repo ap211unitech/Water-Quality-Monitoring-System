@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from '@/providers/location'
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
@@ -13,6 +13,7 @@ import { styled } from '@mui/material/styles';
 import moment from 'moment';
 import { DeleteForever } from '@mui/icons-material'
 import { red } from '@mui/material/colors';
+import ConfirmDialog from './ConfirmDialog'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -48,8 +49,13 @@ const Location = () => {
         }
     }, [isError])
 
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' });
     const handleDelete = (id) => {
         onDeleteLocation(id);
+        setConfirmDialog(prev => ({
+            ...prev,
+            isOpen: false
+        }))
     }
 
     useEffect(() => {
@@ -101,7 +107,21 @@ const Location = () => {
                                 {locations.map((row, i) => (
                                     <StyledTableRow key={i}>
                                         <TableCell align='center'>
-                                            <DeleteForever style={{ color: red[600], fontSize: '2em', cursor: 'pointer' }} onClick={() => handleDelete(row._id)} />
+                                            <DeleteForever
+                                                style={{
+                                                    color: red[600],
+                                                    fontSize: '2em',
+                                                    cursor: 'pointer'
+                                                }}
+                                                onClick={() => {
+                                                    setConfirmDialog({
+                                                        isOpen: true,
+                                                        title: 'Are you sure to delete this location ?',
+                                                        subTitle: "All sensors on this location would also get deleted. You can't undo this operation.",
+                                                        onConfirm: () => { handleDelete(row._id) }
+                                                    })
+                                                }}
+                                            />
                                         </TableCell>
                                         <TableCell align='center' component="th" scope="row">{row._id}</TableCell>
                                         <TableCell align="center">
@@ -115,6 +135,7 @@ const Location = () => {
                     </TableContainer>
                 </div>
             }
+            <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
         </>
     )
 }

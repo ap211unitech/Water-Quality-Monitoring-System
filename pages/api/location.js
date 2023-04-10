@@ -1,5 +1,6 @@
 import dbConnect from "../../config/connect";
 import Location from '../../models/Location';
+import Sensor from '../../models/Sensor';
 import { createResponse } from "@/utils/response";
 
 export default async function handler(req, res) {
@@ -38,6 +39,7 @@ export default async function handler(req, res) {
       const { locationId } = req.body;
       try {
         await Location.deleteOne({ _id: locationId });
+        await Sensor.deleteMany({ location: locationId });
         res.status(200).json(createResponse('Location deleted', 200, true));
       }
       catch (error) {
