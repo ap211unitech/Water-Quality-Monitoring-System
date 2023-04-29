@@ -4,6 +4,8 @@ import moment from 'moment';
 
 const Chart = ({ chartData: { data, location, type } }) => {
 
+    if (data === undefined || data?.dates.length === 0 || data?.liveData.length === 0) return <></>;
+
     const [chartLabel, setChartLabel] = useState('');
     useEffect(() => {
         if (type === 'ph') {

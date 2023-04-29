@@ -29,9 +29,9 @@ export default function DashboardData({ location }) {
     const [phSensorID, setPhSensorID] = useState(null);
     const [tdsSensorID, setTDSSensorID] = useState(null);
 
-    const { data: tempData } = useSWR(tempSensorID, () => fetcher(tempSensorID));
-    const { data: phData } = useSWR(phSensorID, () => fetcher(phSensorID));
-    const { data: tdsData } = useSWR(tdsSensorID, () => fetcher(tdsSensorID));
+    const { data: tempData } = useSWR(tempSensorID, () => fetcher(tempSensorID), { refreshInterval: 10000 });
+    const { data: phData } = useSWR(phSensorID, () => fetcher(phSensorID), { refreshInterval: 10000 });
+    const { data: tdsData } = useSWR(tdsSensorID, () => fetcher(tdsSensorID), { refreshInterval: 10000 });
 
     useEffect(() => {
         location?.sensors?.forEach(s => {
