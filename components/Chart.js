@@ -1,5 +1,6 @@
 import { CChart } from '@coreui/react-chartjs';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 const Chart = ({ chartData: { data, location, type } }) => {
 
@@ -23,7 +24,7 @@ const Chart = ({ chartData: { data, location, type } }) => {
             <CChart
                 type="line"
                 data={{
-                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // Dates goes here
+                    labels: data?.dates.map(liveDate => moment(liveDate).format("DD/MM/YYYY")), // Dates goes here
                     datasets: [
                         {
                             label: `${chartLabel} of water at different days at ${location}`,
@@ -31,7 +32,7 @@ const Chart = ({ chartData: { data, location, type } }) => {
                             borderColor: "rgba(151, 187, 205, 1)",
                             pointBackgroundColor: "rgba(151, 187, 205, 1)",
                             pointBorderColor: "#fff",
-                            data: data.map(d => d),
+                            data: data?.liveData,
                         },
                     ]
                 }}

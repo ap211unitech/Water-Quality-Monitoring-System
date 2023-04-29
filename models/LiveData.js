@@ -2,12 +2,14 @@ import mongoose from 'mongoose'
 
 const LiveDataSchema = new mongoose.Schema({
     sensorId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'sensor'
+        type: String,
+        required: true,
+        trim: true,
     },
     data: {
-        type: Number,
-        required: true
+        type: String,
+        required: true,
+        trim: true,
     }
 }, { timestamps: true })
 

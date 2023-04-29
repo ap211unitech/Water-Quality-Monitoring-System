@@ -137,9 +137,9 @@ export default function DashboardData({ location }) {
                                                 marginLeft: 8
                                             }}
                                         >
-                                            {sensor.type === 'temp' && tempData?.length && tempData[0]}
-                                            {sensor.type === 'ph' && phData?.length && phData[0]}
-                                            {sensor.type === 'tds' && tdsData?.length && tdsData[0]}
+                                            {sensor.type === 'temp' && tempData?.liveData?.length && tempData['liveData'][0]}
+                                            {sensor.type === 'ph' && phData?.liveData?.length && phData['liveData'][0]}
+                                            {sensor.type === 'tds' && tdsData?.liveData?.length && tdsData['liveData'][0]}
 
                                             {' '}{units[sensor.type]}
                                         </span>
