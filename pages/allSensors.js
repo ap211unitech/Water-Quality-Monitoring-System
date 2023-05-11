@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSensor } from "@/providers/sensor"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -52,6 +52,20 @@ const allSensors = () => {
         }
     }, [deleteSensor.isError, deleteSensor.isSuccess])
 
+
+    const [screenSize, setScreenSize] = useState();
+
+    const getCurrentDimension = () => {
+        return {
+            width: window?.innerWidth,
+            height: window?.innerHeight
+        }
+    }
+
+    useEffect(() => {
+        setScreenSize(getCurrentDimension());
+    }, [])
+
     const handleSensorDelete = (sensorId) => {
         onDeleteSensor(sensorId);
     }
@@ -83,7 +97,7 @@ const allSensors = () => {
             <h1>Here is the list of all sensors...</h1>
             <div style={{ marginTop: '1em' }}>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <Table aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align='center'></StyledTableCell>
@@ -97,9 +111,9 @@ const allSensors = () => {
                                 <StyledTableCell align="center">
                                     Sensor type
                                 </StyledTableCell>
-                                <StyledTableCell align="center">
+                                {screenSize?.width >= 600 && <StyledTableCell align="center">
                                     Created at
-                                </StyledTableCell>
+                                </StyledTableCell>}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -124,9 +138,9 @@ const allSensors = () => {
                                             <TableCell align="center">
                                                 {sensorTypes[s.type]} sensor
                                             </TableCell>
-                                            <TableCell align="center">
+                                            {screenSize?.width >= 600 && <TableCell align="center">
                                                 {moment(s.createdAt).format("DD/MM/YYYY")}
-                                            </TableCell>
+                                            </TableCell>}
                                         </StyledTableRow>
                                     ))
                                 )

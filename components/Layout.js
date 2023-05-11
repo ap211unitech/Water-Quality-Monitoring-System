@@ -14,9 +14,39 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { GitHub, Dashboard, AddLocation, Sensors, AddCircle } from '@mui/icons-material'
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 const drawerWidth = 260;
 
 export default function PermanentDrawerLeft({ children }) {
+    const [screenSize, setScreenSize] = useState();
+
+    const getCurrentDimension = () => {
+        return {
+            width: window?.innerWidth,
+            height: window?.innerHeight
+        }
+    }
+
+    useEffect(() => {
+        setScreenSize(getCurrentDimension());
+    }, [])
+
+    const [state, setState] = useState({
+        top: false,
+        left: false,
+        bottom: false,
+        right: false,
+    });
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -28,6 +58,7 @@ export default function PermanentDrawerLeft({ children }) {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
+                        onClick={toggleDrawer('left', true)}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -44,12 +75,15 @@ export default function PermanentDrawerLeft({ children }) {
                 </Toolbar>
             </AppBar>
             <Drawer
-                variant="permanent"
+                variant={screenSize?.width >= 600 ? "permanent" : "temporary"}
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
                     [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
                 }}
+                anchor={'left'}
+                open={state['left']}
+                onClick={toggleDrawer('left', false)}
             >
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
@@ -100,6 +134,6 @@ export default function PermanentDrawerLeft({ children }) {
             <Box component="main" sx={{ flexGrow: 1, p: 3, my: 8 }}>
                 {children}
             </Box>
-        </Box>
+        </Box >
     );
 }

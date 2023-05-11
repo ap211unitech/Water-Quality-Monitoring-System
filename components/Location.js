@@ -67,6 +67,19 @@ const Location = () => {
         }
     }, [deleteLocation.isError, deleteLocation.isSuccess])
 
+    const [screenSize, setScreenSize] = useState();
+
+    const getCurrentDimension = () => {
+        return {
+            width: window?.innerWidth,
+            height: window?.innerHeight
+        }
+    }
+
+    useEffect(() => {
+        setScreenSize(getCurrentDimension());
+    }, [])
+
     if (isLoading) {
         return (
             <div style={{
@@ -94,13 +107,13 @@ const Location = () => {
                 locations?.length > 0 &&
                 <div style={{ marginTop: '1.8em' }}>
                     <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <Table aria-label="customized table">
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align='center'></StyledTableCell>
                                     <StyledTableCell align='center'>Id</StyledTableCell>
                                     <StyledTableCell align="center">Location</StyledTableCell>
-                                    <StyledTableCell align="center">Created at</StyledTableCell>
+                                    {screenSize?.width >= 600 && <StyledTableCell align="center">Created at</StyledTableCell>}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -127,13 +140,13 @@ const Location = () => {
                                         <TableCell align="center">
                                             {row.name}
                                         </TableCell>
-                                        <TableCell align="center">Created at {moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
+                                        {screenSize?.width >= 600 && <TableCell align="center">Created at {moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>}
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
+                </div >
             }
             <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
         </>

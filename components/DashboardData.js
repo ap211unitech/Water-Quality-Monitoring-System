@@ -106,7 +106,7 @@ export default function DashboardData({ location }) {
             <Grid container rowSpacing={1} columnSpacing={{ md: 3 }}>
                 {location.sensors?.map(sensor => {
                     return (
-                        <Grid item xs={4} key={sensor._id}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={4} key={sensor._id}>
                             <Card sx={{ maxWidth: 600, boxShadow: 2, my: 2 }}>
                                 <CardContent>
                                     <Typography variant="h5" component="div" gutterBottom>
