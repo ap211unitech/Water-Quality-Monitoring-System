@@ -107,9 +107,9 @@ export default function DashboardData({ location }) {
             <Typography variant="h6" fontSize={18} mt={1} color={"black"}>
                 {
                     checkWaterQuality({
-                        tds: tdsData?.liveData?.length && tdsData['liveData'][0],
-                        temp: tempData?.liveData?.length && tempData['liveData'][0],
-                        ph: phData?.liveData?.length && phData['liveData'][0]
+                        tds: tdsData?.liveData?.length ? tdsData['liveData'][0] : undefined,
+                        temp: tempData?.liveData?.length ? tempData['liveData'][0] : undefined,
+                        ph: phData?.liveData?.length ? phData['liveData'][0] : undefined
                     })
                 }
             </Typography>
@@ -147,11 +147,10 @@ export default function DashboardData({ location }) {
                                                 marginLeft: 8
                                             }}
                                         >
-                                            {sensor.type === 'temp' && tempData?.liveData?.length && tempData['liveData'][0]}
-                                            {sensor.type === 'ph' && phData?.liveData?.length && phData['liveData'][0]}
-                                            {sensor.type === 'tds' && tdsData?.liveData?.length && tdsData['liveData'][0]}
+                                            {sensor.type === 'temp' && tempData?.liveData?.length ? tempData['liveData'][0] + " " + units[sensor.type] : undefined}
+                                            {sensor.type === 'ph' && phData?.liveData?.length ? phData['liveData'][0] + " " + units[sensor.type] : undefined}
+                                            {sensor.type === 'tds' && tdsData?.liveData?.length ? tdsData['liveData'][0] + " " + units[sensor.type] : undefined}
 
-                                            {' '}{units[sensor.type]}
                                         </span>
                                     </Button>
                                 </CardActions>
