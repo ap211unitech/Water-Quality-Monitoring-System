@@ -1,38 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Water Quality Monitoring System with IoT
+> Water quality is a critical issue in IIT Jodhpur, one of India's premier engineering institutions. Ensuring access to clean and safe water for various purposes is essential for the well-being and health of the campus community. This project focuses on the water quality concerns in IIT Jodhpur and explores potential measures to address this issue. Implementing a robust water quality monitoring system using Internet of Things (IoT) technology can help regularly assess and analyze the water for potential contaminants. The system measures key water quality parameters such as pH, temperature, and TDS in different locations and transmits the data to a cloud server for analysis and storage. The system aims to provide real-time and efficient water quality monitoring, promoting environmental sustainability and helping to ensure safe drinking water.
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Usage 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. One can add a new Location in the dashboard. 
+2. There can be three types of sensors that can be added in a location are Water Temperature sensor, Water pH sensor and Water TDS sensor. 
+3. These three sensor will provide the readings when they actually will get implemented in a particular location. 
+4. When a new sensor would be added to a particular location, he/she will get a unique sensorID. This sensorID would be sent along with the sensor data and It would be sent by that particular sensor. This task would be done in Aurdino Programming. 
+5. Particular Sensor Data would be recieved by Dashboard in Real-Time and After Combining all three values would provide a result that Water is Safe to Drink or not. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Tech Stack Used
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. NextJS
+2. MaterialUI
+3. Arduino Programming
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Quick Start
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. NodeJS must be installed in system to run the project. 
+2. Fork the Repo and Do a `yarn install` in the project folder
+2. To run the project, run `yarn dev`
+3. Hurrayyyyy.....Site is live at [http://localhost:3000/](http://localhost:3000)
 
-## Learn More
+## Full Report 
+[Report](https://docs.google.com/document/d/1rS9zY8Egw-pAMKQnYQ8R3ilWeSOPiPLX7hQPlecskCU/edit?usp=sharing)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Developer 
+[Arjun Porwal](https://github.com/ap211unitech) | [Deepanshu Agrawal](https://github.com/DeepAgr)
