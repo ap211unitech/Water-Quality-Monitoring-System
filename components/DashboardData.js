@@ -104,6 +104,15 @@ export default function DashboardData({ location }) {
             }}
         >
             <h2>{location.name}</h2>
+            <Typography variant="h6" fontSize={18} mt={1} color={"black"}>
+                {
+                    checkWaterQuality({
+                        tds: tdsData?.liveData?.length && tdsData['liveData'][0],
+                        temp: tempData?.liveData?.length && tempData['liveData'][0],
+                        ph: phData?.liveData?.length && phData['liveData'][0]
+                    })
+                }
+            </Typography>
             <Grid container rowSpacing={1} columnSpacing={{ md: 3 }}>
                 {location.sensors?.map(sensor => {
                     return (
@@ -146,7 +155,6 @@ export default function DashboardData({ location }) {
                                         </span>
                                     </Button>
                                 </CardActions>
-                                <Typography px={1.7} mb={3} >{checkWaterQuality({ tds: 100 })}</Typography>
                             </Card>
                         </Grid>
                     )
