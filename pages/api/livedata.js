@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         case 'POST': {
             try {
                 const { sensorId } = req.body;
-                const liveCapturedData = await LiveData.find({ sensorId }).sort({ createdAt: -1 }).limit(10);
+                const liveCapturedData = await LiveData.find({ sensorId }).sort({ createdAt: -1 }).limit(30);
                 const liveData = liveCapturedData.map(d => d.data);
                 const datesAtWhichDataCaptured = liveCapturedData.map(d => d.createdAt);
                 res.status(200).json(createResponse({ liveData, dates: datesAtWhichDataCaptured }, 200, true));

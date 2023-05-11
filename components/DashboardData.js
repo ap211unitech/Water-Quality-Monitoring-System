@@ -11,6 +11,7 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from './Chart'
+import { checkWaterQuality } from "@/utils/checkWaterQuality";
 
 const fetcher = async (sensorId) => {
     const res = await axios.post('/api/livedata', { sensorId });
@@ -145,6 +146,7 @@ export default function DashboardData({ location }) {
                                         </span>
                                     </Button>
                                 </CardActions>
+                                <Typography px={1.7} mb={3} >{checkWaterQuality({ tds: 100 })}</Typography>
                             </Card>
                         </Grid>
                     )
