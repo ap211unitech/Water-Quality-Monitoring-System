@@ -1,4 +1,4 @@
-# Water Quality Monitoring System with IoT
+# Water Quality Monitoring System using IoT devices
 > Water quality is a critical issue in IIT Jodhpur, one of India's premier engineering institutions. Ensuring access to clean and safe water for various purposes is essential for the well-being and health of the campus community. This project focuses on the water quality concerns in IIT Jodhpur and explores potential measures to address this issue. Implementing a robust water quality monitoring system using Internet of Things (IoT) technology can help regularly assess and analyze the water for potential contaminants. The system measures key water quality parameters such as pH, temperature, and TDS in different locations and transmits the data to a cloud server for analysis and storage. The system aims to provide real-time and efficient water quality monitoring, promoting environmental sustainability and helping to ensure safe drinking water.
 
 
